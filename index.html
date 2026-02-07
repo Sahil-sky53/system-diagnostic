@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical System Update</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Courier New', Courier, monospace; background-color: #fce4ec; overflow: hidden; margin: 0; }
+        #main-content { text-align: center; transition: 0.5s; }
+        h1 { color: #880e4f; margin-bottom: 10px; }
+        #message-box { height: 30px; color: #ad1457; font-weight: bold; margin-bottom: 20px; }
+        .buttons { position: relative; width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; }
+        
+        /* The Yes Button */
+        #yesBtn { background-color: #ff4081; color: white; border: none; padding: 15px 40px; font-size: 1.5rem; border-radius: 50px; cursor: pointer; transition: 0.3s; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        
+        /* The Small No Button */
+        #noBtn { background-color: #37474f; color: white; border: none; padding: 5px 15px; font-size: 0.7rem; border-radius: 4px; cursor: pointer; position: absolute; transition: 0.1s; }
+        
+        #celebration { display: none; text-align: center; animation: pop 0.5s ease-out; }
+        @keyframes pop { 0% { transform: scale(0.5); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div id="main-content">
+        <h1>Will you be my Valentine, my beautiful fiancé? ❤️</h1>
+        <div id="message-box">Go on, click one...</div>
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">YES</button>
+            <button id="noBtn" onmouseover="moveButton()">no</button>
+        </div>
+    </div>
+
+    <div id="celebration">
+        <h1 style="font-size: 3rem;">OFFICIALLY MINE! 🥰</h1>
+        <p style="font-size: 1.5rem;">I'm already counting down the days until I see you.</p>
+        <div style="font-size: 5rem;">💍🌹🥂✨</div>
+    </div>
+
+    <script>
+        let yesSize = 1;
+        const messages = [
+            "Wait, what are you doing?",
+            "The 'No' button is a bit shy...",
+            "Are you sure? Really sure?",
+            "Error: 'No' functionality not found.",
+            "I'm telling the wedding planner!",
+            "Just click the big pink one, it's easier.",
+            "Still trying? I admire the dedication."
+        ];
+        let msgIndex = 0;
+
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const msgBox = document.getElementById('message-box');
+            
+            // Move No Button to a random spot
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            // Make Yes Button grow
+            yesSize += 0.3;
+            yesBtn.style.transform = `scale(${yesSize})`;
+
+            // Change the message
+            msgBox.innerHTML = messages[msgIndex];
+            msgIndex = (msgIndex + 1) % messages.length;
+        }
+
+        function celebrate() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            document.body.style.backgroundColor = '#f8bbd0';
+        }
+    </script>
+</body>
+</html>
